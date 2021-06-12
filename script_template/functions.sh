@@ -46,7 +46,7 @@ function handle_directory() {
   
   local target_path
   target_path="${1}"
-  for item in "${target_path}"*; do
+  for item in "${target_path}/"*; do
       if [ -f "${item}" ]; then
         if [[ "${item}" == *.sh ]]; then
           handle_file "${item}"
@@ -104,12 +104,12 @@ function init_template_script_wrapper() {
     while IFS= read -r line; do
       line_no=$((line_no + 1))
       if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
-        script_part_1="$(tail -n "+1" "${script_dir}/script_template.sh" | head -n "$((line_no - 1 + 1))")"
+        script_part_1="$(tail -n "+1" "${script_dir}/script_template" | head -n "$((line_no - 1 + 1))")"
         export script_part_1="${script_part_1/\$DATE\$/${current_date}}"
       elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
-        export script_part_2="$(tail -n "+${line_no}" "${script_dir}/script_template.sh")"
+        export script_part_2="$(tail -n "+${line_no}" "${script_dir}/script_template")"
       fi
-    done < "${script_dir}/script_template.sh"
+    done < "${script_dir}/script_template"
   fi
   
   ###############################FUNCTION_END##################################
@@ -145,12 +145,12 @@ function init_template_function_wrapper() {
     while IFS= read -r line; do
       line_no=$((line_no + 1))
       if [ "${line}" = "  ##############################FUNCTION_START#################################" ]; then
-        body_part_1="$(tail -n "+2" "${script_dir}/function_template.sh" | head -n "$((line_no - 2 + 1))")"
+        body_part_1="$(tail -n "+2" "${script_dir}/function_template" | head -n "$((line_no - 2 + 1))")"
         export body_part_1="${body_part_1/\$DATE\$/${current_date}}"
       elif [ "${line}" = "  ###############################FUNCTION_END##################################" ]; then
-        export body_part_2="$(tail -n "+${line_no}" "${script_dir}/function_template.sh")"
+        export body_part_2="$(tail -n "+${line_no}" "${script_dir}/function_template")"
       fi
-    done < "${script_dir}/function_template.sh"
+    done < "${script_dir}/function_template"
   fi
   
   ###############################FUNCTION_END##################################
