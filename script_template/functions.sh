@@ -3,7 +3,7 @@
 
 
 function run() {
-  # Function template5 2021-06-13
+  # Function template 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -31,7 +31,7 @@ function run() {
 
 
 function handle_directory() {
-  # Function template5 2021-06-13
+  # Function template 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -82,7 +82,7 @@ function handle_file() {
 
 
 function init_template_script_wrapper() {
-  # Function template5 2021-06-13
+  # Function template 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -108,6 +108,7 @@ function init_template_script_wrapper() {
         export script_part_1="${script_part_1/\$DATE\$/${current_date}}"
       elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
         export script_part_2="$(tail -n "+${line_no}" "${script_dir}/script_template")"
+        break
       fi
     done < "${script_dir}/script_template"
   fi
@@ -123,7 +124,7 @@ function init_template_script_wrapper() {
 
 
 function init_template_function_wrapper() {
-  # Function template5 2021-06-13
+  # Function template 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -164,7 +165,7 @@ function init_template_function_wrapper() {
 
 
 function update_script() {
-  # Function template5 2021-06-13
+  # Function template 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -179,7 +180,7 @@ function update_script() {
   
   local filepath
   filepath="${1}"
-  init_template_function_wrapper
+  init_template_script_wrapper
   local script_start
   script_start="0"
   local script_end
@@ -193,7 +194,7 @@ function update_script() {
     if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
       script_start="$((line_no + 1))"
     elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
-      body_end="$((line_no - 1))"
+      script_end="$((line_no - 1))"
     fi
     if [ "${script_end}" != "0" ]; then
       if [ "${script_start}" != "0" ]; then
@@ -221,7 +222,7 @@ function update_script() {
 
 
 function update_functions() {
-  # Function template5 2021-06-13
+  # Function template 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
