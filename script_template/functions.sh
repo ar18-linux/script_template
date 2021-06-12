@@ -46,7 +46,7 @@ function handle_directory() {
   
   local target_path
   target_path="${1}"
-  for item in "${target_path}"/*; do
+  for item in "${target_path}"*; do
       if [ -f "${item}" ]; then
         if [[ "${item}" == *.sh ]]; then
           handle_file "${item}"
