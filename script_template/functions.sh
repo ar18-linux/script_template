@@ -189,7 +189,6 @@ function update_script() {
   local line_no
   line_no=0
   while IFS= read -r line; do
-    echo "${line}"
     line_no=$((line_no + 1))
     if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
       script_start="$((line_no + 1))"
@@ -251,7 +250,6 @@ function update_functions() {
   local line_no
   line_no=0
   while IFS= read -r line; do
-    echo "${line}"
     line_no=$((line_no + 1))
     if [[ "${line}" == function* ]]; then
       function_start="${line_no}"
