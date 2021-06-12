@@ -46,15 +46,17 @@ function handle_directory() {
   local target_path
   target_path="${1}"
   for item in "${target_path}"/*; do
-    if [ -f "${item}" ]; then
-      echo "file: ${item}"
-      handle_file "${item}"
-    elif [ -d "${item}" ]; then
-      echo "dir: ${item}"
-      #handle_directory "${item}"
-    else
-      echo "unknown: ${item}"
-    fi
+      if [ -f "${item}" ]; then
+        if [[ "${item}" == *.sh ]]; then
+          echo "file: ${item}"
+          handle_file "${item}"
+        fi
+      elif [ -d "${item}" ]; then
+        echo "dir: ${item}"
+        handle_directory "${item}"
+      else
+        echo "unknown: ${item}"
+      fi
   done
   
   ###############################FUNCTION_END##################################
@@ -149,15 +151,13 @@ function update_functions() {
   while IFS= read -r line; do
     echo "${line}"
     line_no=$((line_no + 1))
-    if [[ "${line}" =~ "^function " ]]; then
-      echo "${line_no}"
-      exit 1
+    if [[ "${line}" == function* ]]; then
       function_start="${line_no}"
     elif [ "${line}" = "  ##############################FUNCTION_START#################################" ]; then
-      body_start="${line_no}"
+      body_start="$((line_no + 1))"
     elif [ "${line}" = "  ###############################FUNCTION_END##################################" ]; then
-      body_end="${line_no}"
-    elif [[ "${line}" =~ "^}" ]]; then
+      body_end="$((line_no - 1))"
+    elif [[ "${line}" == }* ]]; then
       function_end="${line_no}"
     fi
     if [ "${function_start}" = "0" ]; then
@@ -169,7 +169,7 @@ function update_functions() {
         exit 1
       fi
       if [ "${body_start}" != "0" ] && [ "${body_end}" != "0" ]; then
-        echo "$(tail -n "+${function_start}" "${filepath}")" >> "${filepath}_bak"
+        echo "$(sed "${function_start}!d" "${filepath}")" >> "${filepath}_bak"
         echo "${body_part_1}" >> "${filepath}_bak"
         echo "$(tail -n "+${body_start}" "${filepath}" | head -n "$((body_end - body_start + 1))")" >> "${filepath}_bak"
         echo "${body_part_2}" >> "${filepath}_bak"
@@ -182,6 +182,7 @@ function update_functions() {
       function_end="0"
     fi
   done < "${filepath}"
+  mv "${filepath}_bak" "${filepath}"
   
   ###############################FUNCTION_END##################################
   set +x
