@@ -1,4 +1,5 @@
 #!/bin/bash
+# ar18
 
 
 function run() {
@@ -72,9 +73,12 @@ function handle_directory() {
 function handle_file() {
   local filepath
   filepath="${1}"
-  rm -f "${filepath}_bak"
-  update_functions "${filepath}"
-  
+  local check
+  check="$(sed "2!d" "${filepath}")"
+  if [ "${check}" = " ar18" ]; then
+    rm -f "${filepath}_bak"
+    update_functions "${filepath}"
+  fi
 }
 
 
