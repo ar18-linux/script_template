@@ -75,7 +75,7 @@ function handle_file() {
   filepath="${1}"
   local check
   check="$(sed "2!d" "${filepath}")"
-  if [ "${check}" = " ar18" ]; then
+  if [ "${check}" = "# ar18" ]; then
     rm -f "${filepath}_bak"
     update_functions "${filepath}"
   fi
