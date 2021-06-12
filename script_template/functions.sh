@@ -76,9 +76,50 @@ function handle_file() {
   local check
   check="$(sed "2!d" "${filepath}")"
   if [ "${check}" = "# ar18" ]; then
-    rm -f "${filepath}_bak"
     update_functions "${filepath}"
+    update_script "${filepath}"
   fi
+}
+
+
+function init_template_script_wrapper() {
+  # Function template 2021-06-12.01
+  local LD_PRELOAD_old
+  LD_PRELOAD_old="${LD_PRELOAD}"
+  LD_PRELOAD=
+  local shell_options
+  IFS=$'\n' shell_options=($(shopt -op))
+  set -eu
+  set -o pipefail
+  local ret
+  ret=0
+  set +x
+  ##############################FUNCTION_START#################################
+  
+  if [ ! -v script_part_1 ] || [ ! -v script_part_2 ]; then
+    current_date="$(date +%F)"
+    local line_no
+    line_no=0
+    local script_dir
+    script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+    while IFS= read -r line; do
+      line_no=$((line_no + 1))
+      if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
+        script_part_1="$(tail -n "+1" "${script_dir}/script_template.sh" | head -n "$((line_no - 1 + 1))")"
+        export script_part_1="${script_part_1/\$DATE\$/${current_date}}"
+      elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
+        export script_part_2="$(tail -n "+${line_no}" "${script_dir}/script_template.sh")"
+      fi
+    done < "${script_dir}/script_template.sh"
+  fi
+  
+  ###############################FUNCTION_END##################################
+  set +x
+  for option in "${shell_options[@]}"; do
+    eval "${option}"
+  done
+  LD_PRELOAD="${LD_PRELOAD_old}"
+  return "${ret}"
 }
 
 
@@ -112,6 +153,64 @@ function init_template_function_wrapper() {
       fi
     done < "${script_dir}/function_template.sh"
   fi
+  
+  ###############################FUNCTION_END##################################
+  set +x
+  for option in "${shell_options[@]}"; do
+    eval "${option}"
+  done
+  LD_PRELOAD="${LD_PRELOAD_old}"
+  return "${ret}"
+}
+
+
+function update_script() {
+  # Function template 2021-06-12.01
+  local LD_PRELOAD_old
+  LD_PRELOAD_old="${LD_PRELOAD}"
+  LD_PRELOAD=
+  local shell_options
+  IFS=$'\n' shell_options=($(shopt -op))
+  set -eu
+  set -o pipefail
+  local ret
+  ret=0
+  set +x
+  ##############################FUNCTION_START#################################
+  
+  local filepath
+  filepath="${1}"
+  init_template_function_wrapper
+  local script_start
+  script_start="0"
+  local script_end
+  script_end="0"
+  rm -f "${filepath}_bak"
+  touch "${filepath}_bak"
+  local line_no
+  line_no=0
+  while IFS= read -r line; do
+    echo "${line}"
+    line_no=$((line_no + 1))
+    if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
+      script_start="$((line_no + 1))"
+    elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
+      body_end="$((line_no - 1))"
+    fi
+    if [ "${script_end}" != "0" ]; then
+      if [ "${script_start}" != "0" ]; then
+        echo "${script_part_1}" >> "${filepath}_bak"
+        echo "$(tail -n "+${script_start}" "${filepath}" | head -n "$((script_end - script_start + 1))")" >> "${filepath}_bak"
+        echo "${script_part_2}" >> "${filepath}_bak"
+        mv "${filepath}_bak" "${filepath}"
+        break 
+      else
+        break
+      fi
+    fi
+  done < "${filepath}"
+  
+  rm -f "${filepath}_bak"
   
   ###############################FUNCTION_END##################################
   set +x

@@ -1,4 +1,5 @@
 #!/bin/bash
+# ar18
 
 # Script template version $DATE$
 # Make sure some modification to LD_PRELOAD will not alter the result or outcome in any way
