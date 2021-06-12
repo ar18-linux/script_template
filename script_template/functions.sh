@@ -164,17 +164,17 @@ function update_functions() {
       echo "${line}" >> "${filepath}_bak"
     fi
     if [ "${function_end}" != "0" ]; then
-      if [ "${function_start}" = "0" ]; then
-        read -p "Missing function start"
-        exit 1
-      fi
-      if [ "${body_start}" != "0" ] && [ "${body_end}" != "0" ]; then
-        echo "$(sed "${function_start}!d" "${filepath}")" >> "${filepath}_bak"
-        echo "${body_part_1}" >> "${filepath}_bak"
-        echo "$(tail -n "+${body_start}" "${filepath}" | head -n "$((body_end - body_start + 1))")" >> "${filepath}_bak"
-        echo "${body_part_2}" >> "${filepath}_bak"
+      if [ "${function_start}" != "0" ]; then
+        if [ "${body_start}" != "0" ] && [ "${body_end}" != "0" ]; then
+          echo "$(sed "${function_start}!d" "${filepath}")" >> "${filepath}_bak"
+          echo "${body_part_1}" >> "${filepath}_bak"
+          echo "$(tail -n "+${body_start}" "${filepath}" | head -n "$((body_end - body_start + 1))")" >> "${filepath}_bak"
+          echo "${body_part_2}" >> "${filepath}_bak"
+        else
+          echo "$(tail -n "+${function_start}" "${filepath}" | head -n "$((function_end - function_start + 1))")" >> "${filepath}_bak"
+        fi
       else
-        echo "$(tail -n "+${function_start}" "${filepath}" | head -n "$((function_end - function_start + 1))")" >> "${filepath}_bak"
+        echo "${line}" >> "${filepath}_bak"
       fi
       function_start="0"
       body_start="0"
