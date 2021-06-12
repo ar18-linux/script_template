@@ -200,6 +200,8 @@ function update_script() {
       if [ "${script_start}" != "0" ]; then
         echo "${script_part_1}" >> "${filepath}_bak"
         echo "$(tail -n "+${script_start}" "${filepath}" | head -n "$((script_end - script_start + 1))")" >> "${filepath}_bak"
+        # TODO: Somehow, newlines are completely removed between end of script and footer. This is just a patch, not a solution
+        echo '' >> "${filepath}_bak"
         echo "${script_part_2}" >> "${filepath}_bak"
         mv "${filepath}_bak" "${filepath}"
         break 
