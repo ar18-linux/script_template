@@ -34,7 +34,7 @@ set -eu
 
 . "${script_dir}/functions.sh"
 
-run /tmp/test
+run "${1}"
 
 #------------------------------------------------------
 # End of script
