@@ -49,11 +49,9 @@ function handle_directory() {
   for item in "${target_path}"/*; do
       if [ -f "${item}" ]; then
         if [[ "${item}" == *.sh ]]; then
-          echo "file: ${item}"
           handle_file "${item}"
         fi
       elif [ -d "${item}" ]; then
-        echo "dir: ${item}"
         handle_directory "${item}"
       else
         echo "unknown: ${item}"
@@ -76,6 +74,7 @@ function handle_file() {
   local check
   check="$(sed "2!d" "${filepath}")"
   if [ "${check}" = "# ar18" ]; then
+    echo "Processing ${filepath}"
     update_functions "${filepath}"
     update_script "${filepath}"
   fi
