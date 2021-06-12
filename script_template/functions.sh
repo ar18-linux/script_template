@@ -3,7 +3,7 @@
 
 
 function run() {
-  # Function template 2021-06-12.01
+  # Function template5 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -31,7 +31,7 @@ function run() {
 
 
 function handle_directory() {
-  # Function template 2021-06-12.01
+  # Function template5 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -82,7 +82,7 @@ function handle_file() {
 
 
 function init_template_script_wrapper() {
-  # Function template 2021-06-12.01
+  # Function template5 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -123,7 +123,7 @@ function init_template_script_wrapper() {
 
 
 function init_template_function_wrapper() {
-  # Function template 2021-06-12.01
+  # Function template5 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -164,7 +164,7 @@ function init_template_function_wrapper() {
 
 
 function update_script() {
-  # Function template 2021-06-12.01
+  # Function template5 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
@@ -221,7 +221,7 @@ function update_script() {
 
 
 function update_functions() {
-  # Function template 2021-06-12.01
+  # Function template5 2021-06-13
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
