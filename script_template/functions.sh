@@ -105,7 +105,7 @@ function init_template_script_wrapper() {
       line_no=$((line_no + 1))
       if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
         script_part_1="$(tail -n "+1" "${script_dir}/script_template" | head -n "$((line_no - 1 + 1))")"
-        export script_part_1="${script_part_1/\$DATE\$/${current_date}}"
+        export script_part_1="${script_part_1/{{DATE}}/${current_date}}"
       elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
         export script_part_2="$(tail -n "+${line_no}" "${script_dir}/script_template")"
         break
@@ -147,7 +147,7 @@ function init_template_function_wrapper() {
       line_no=$((line_no + 1))
       if [ "${line}" = "  ##############################FUNCTION_START#################################" ]; then
         body_part_1="$(tail -n "+2" "${script_dir}/function_template" | head -n "$((line_no - 2 + 1))")"
-        export body_part_1="${body_part_1/\$DATE\$/${current_date}}"
+        export body_part_1="${body_part_1/{{DATE}}/${current_date}}"
       elif [ "${line}" = "  ###############################FUNCTION_END##################################" ]; then
         export body_part_2="$(tail -n "+${line_no}" "${script_dir}/function_template")"
       fi

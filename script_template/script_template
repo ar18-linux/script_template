@@ -1,7 +1,7 @@
 #!/bin/bash
 # ar18
 
-# Script template version $DATE$
+# Script template version {{DATE}}
 # Make sure some modification to LD_PRELOAD will not alter the result or outcome in any way
 LD_PRELOAD_old="${LD_PRELOAD}"
 LD_PRELOAD=

@@ -1,5 +1,5 @@
 function function_name() {
-  # Function template $DATE$
+  # Function template version {{DATE}}
   local LD_PRELOAD_old
   LD_PRELOAD_old="${LD_PRELOAD}"
   LD_PRELOAD=
