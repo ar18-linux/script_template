@@ -75,7 +75,8 @@ function handle_file() {
   check="$(sed "2!d" "${filepath}")"
   if [ "${check}" = "# ar18" ]; then
     echo "Processing ${filepath}"
-    update_functions "${filepath}"
+    update_inner_functions "${filepath}"
+    #update_functions "${filepath}"
     update_script "${filepath}"
   fi
 }
@@ -276,7 +277,83 @@ function update_functions() {
         else
           echo "$(tail -n "+${function_start}" "${filepath}" | head -n "$((function_end - function_start + 1))")" >> "${filepath}_bak"
         fi
-      else
+      elif [ "${body_start}" != "0" ]; then
+        echo "${line}" >> "${filepath}_bak"
+      fi
+      function_start="0"
+      body_start="0"
+      body_end="0"
+      function_end="0"
+    fi
+  done < "${filepath}"
+  mv "${filepath}_bak" "${filepath}"
+  
+  ###############################FUNCTION_END##################################
+  set +x
+  for option in "${shell_options[@]}"; do
+    eval "${option}"
+  done
+  LD_PRELOAD="${LD_PRELOAD_old}"
+  return "${ret}"
+}
+
+
+function update_inner_functions() {
+  # Function template 2021-06-13
+  local LD_PRELOAD_old
+  LD_PRELOAD_old="${LD_PRELOAD}"
+  LD_PRELOAD=
+  local shell_options
+  IFS=$'\n' shell_options=($(shopt -op))
+  set -eu
+  set -o pipefail
+  local ret
+  ret=0
+  set +x
+  ##############################FUNCTION_START#################################
+  
+  local filepath
+  filepath="${1}"
+  init_template_function_wrapper
+  local function_start
+  function_start="0"
+  local body_start
+  body_start="0"
+  local body_end
+  body_end="0"
+  local function_end
+  function_end="0"
+  rm -f "${filepath}_bak"
+  touch "${filepath}_bak"
+  local line_no
+  line_no=0
+  while IFS= read -r line; do
+    line_no=$((line_no + 1))
+    if [[ "${line}" == "  function"* ]]; then
+      function_start="${line_no}"
+    elif [ "${line}" = "    ##############################FUNCTION_START#################################" ]; then
+      body_start="$((line_no + 1))"
+    elif [ "${line}" = "    ###############################FUNCTION_END##################################" ]; then
+      body_end="$((line_no - 1))"
+    elif [[ "${line}" == "  }"* ]]; then
+      function_end="${line_no}"
+    fi
+    if [ "${function_start}" = "0" ]; then
+      echo "${line}" >> "${filepath}_bak"
+    fi
+    if [ "${function_end}" != "0" ]; then
+      if [ "${function_start}" != "0" ]; then
+        if [ "${body_start}" != "0" ] && [ "${body_end}" != "0" ]; then
+          echo "$(sed "${function_start}!d" "${filepath}")" >> "${filepath}_bak"
+          body_part_1="  $(echo "${body_part_1}" | perl -p -e 's/\n/\n  /')"
+          echo "${body_part_1}" >> "${filepath}_bak"
+          echo "$(tail -n "+${body_start}" "${filepath}" | head -n "$((body_end - body_start + 1))")" >> "${filepath}_bak"
+          body_part_2="  $(echo "${body_part_2}" | perl -p -e 's/\n/\n  /')"
+          echo -n "${body_part_2}" >> "${filepath}_bak"
+        else
+          echo "$(tail -n "+${function_start}" "${filepath}" | head -n "$((function_end - function_start + 1))")" >> "${filepath}_bak"
+        fi
+      elif [ "${body_start}" != "0" ]; then
         echo "${line}" >> "${filepath}_bak"
       fi
       function_start="0"
