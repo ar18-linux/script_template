@@ -18,7 +18,14 @@ function run() {
   
   local target_path
   target_path="${1}"
-  handle_directory "${target_path}"
+  if [ -d "${target_path}" ]; then
+    handle_directory "${target_path}"
+  elif [ -f "${target_path}" ]; then
+    handle_file "${target_path}"
+  else
+    read -p "UNKNOWN TYPE: [${target_path}]"
+    exit 1
+  fi
   
   ###############################FUNCTION_END##################################
   set +x
@@ -76,8 +83,8 @@ function handle_file() {
   if [ "${check}" = "# ar18" ]; then
     echo "Processing ${filepath}"
     update_inner_functions "${filepath}"
-    update_functions "${filepath}"
-    update_script "${filepath}"
+    #update_functions "${filepath}"
+    #update_script "${filepath}"
   fi
 }
 
@@ -328,6 +335,7 @@ function update_inner_functions() {
   local line_no
   line_no=0
   while IFS= read -r line; do
+    echo "4 ${line} 4"
     line_no=$((line_no + 1))
     if [[ "${line}" == "  function"* ]]; then
       function_start="${line_no}"
