@@ -32,8 +32,15 @@
   # Set shell options for this script
   set -o pipefail
   set -eu
+  cwd="${PWD}"
+  cd /tmp
+  curl -O https://raw.githubusercontent.com/ar18-linux/ar18_lib_bash/master/ar18_lib_bash/script/import.sh && . "/tmp/import.sh"
+  cd "${cwd}"
 }
 #################################SCRIPT_START##################################
+
+ar18.script.import script.obtain_sudo_password
+ar18.script.obtain_sudo_password
 
 . "${script_dir}/functions.sh"
 
