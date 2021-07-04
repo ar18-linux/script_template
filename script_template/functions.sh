@@ -21,6 +21,7 @@ function run() {
   
   local target_path
   target_path="${1}"
+  target_path="$(realpath "${target_path}")"
   if [ -d "${target_path}" ]; then
     handle_directory "${target_path}"
   elif [ -f "${target_path}" ]; then
