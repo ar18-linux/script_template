@@ -96,7 +96,7 @@ function init_template_script_wrapper() {
   ##############################FUNCTION_START#################################
   
   if [ ! -v script_part_1 ] || [ ! -v script_part_2 ]; then
-    current_date="$(date +%F)"
+    current_date="$(cat "${script_dir}/VERSION")"
     local line_no
     line_no=0
     local script_dir
