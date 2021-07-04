@@ -76,7 +76,7 @@ function handle_file() {
   if [ "${check}" = "# ar18" ]; then
     echo "Processing ${filepath}"
     update_inner_functions "${filepath}"
-    #update_functions "${filepath}"
+    update_functions "${filepath}"
     update_script "${filepath}"
   fi
 }
