@@ -3,17 +3,20 @@
 
 
 function run() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   local target_path
@@ -28,27 +31,35 @@ function run() {
   fi
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }
 
 
 function handle_directory() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   local target_path
@@ -66,12 +77,17 @@ function handle_directory() {
   done
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }
 
 
@@ -83,24 +99,27 @@ function handle_file() {
   if [ "${check}" = "# ar18" ]; then
     echo "Processing ${filepath}"
     update_inner_functions "${filepath}"
-    #update_functions "${filepath}"
-    #update_script "${filepath}"
+    update_functions "${filepath}"
+    update_script "${filepath}"
   fi
 }
 
 
 function init_template_script_wrapper() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   if [ ! -v script_part_1 ] || [ ! -v script_part_2 ]; then
@@ -122,27 +141,35 @@ function init_template_script_wrapper() {
   fi
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }
 
 
 function init_template_function_wrapper() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   if [ ! -v body_part_1 ] || [ ! -v body_part_2 ]; then
@@ -163,27 +190,35 @@ function init_template_function_wrapper() {
   fi
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }
 
 
 function update_script() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   local filepath
@@ -222,27 +257,35 @@ function update_script() {
   rm -f "${filepath}_bak"
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }
 
 
 function update_functions() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   local filepath
@@ -262,7 +305,7 @@ function update_functions() {
   line_no=0
   while IFS= read -r line; do
     line_no=$((line_no + 1))
-    if [[ "${line}" == function* ]]; then
+    if [[ "${line}" == "function "* ]]; then
       function_start="${line_no}"
     elif [ "${line}" = "  ##############################FUNCTION_START#################################" ]; then
       body_start="$((line_no + 1))"
@@ -296,27 +339,35 @@ function update_functions() {
   mv "${filepath}_bak" "${filepath}"
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }
 
 
 function update_inner_functions() {
-  # Function template 2021-06-13
-  local LD_PRELOAD_old
-  LD_PRELOAD_old="${LD_PRELOAD}"
-  LD_PRELOAD=
-  local shell_options
-  IFS=$'\n' shell_options=($(shopt -op))
-  set -eu
-  set -o pipefail
-  local ret
-  ret=0
-  set +x
+  # Prepare script environment
+  {
+    # Function template version 2021-07-04_12:52:07
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    LD_PRELOAD=
+    local shell_options
+    IFS=$'\n' shell_options=($(shopt -op))
+    set -eu
+    set -o pipefail
+    local ret
+    ret=0
+    set +x
+  }
   ##############################FUNCTION_START#################################
   
   local filepath
@@ -335,9 +386,8 @@ function update_inner_functions() {
   local line_no
   line_no=0
   while IFS= read -r line; do
-    echo "4 ${line} 4"
     line_no=$((line_no + 1))
-    if [[ "${line}" == "  function"* ]]; then
+    if [[ "${line}" == "  function "* ]]; then
       function_start="${line_no}"
     elif [ "${line}" = "    ##############################FUNCTION_START#################################" ]; then
       body_start="$((line_no + 1))"
@@ -373,10 +423,15 @@ function update_inner_functions() {
   mv "${filepath}_bak" "${filepath}"
   
   ###############################FUNCTION_END##################################
-  set +x
-  for option in "${shell_options[@]}"; do
-    eval "${option}"
-  done
-  LD_PRELOAD="${LD_PRELOAD_old}"
+  # Restore environment
+  {
+    set +x
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+    LD_PRELOAD="${LD_PRELOAD_old}"
+  }
+  
   return "${ret}"
+  
 }

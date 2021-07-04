@@ -26,5 +26,7 @@ function function_name() {
     done
     LD_PRELOAD="${LD_PRELOAD_old}"
   }
+  
   return "${ret}"
+  
 }
