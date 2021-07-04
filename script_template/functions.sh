@@ -104,7 +104,7 @@ function handle_file() {
     update_script "${filepath}"
   fi
   ar18.script.import script.execute_with_sudo
-  ar18.script.execute_with_sudo "chmod +x \"${filepath}\""
+  ar18.script.execute_with_sudo chmod +x "${filepath}"
   #echo ""
   #echo "${ar18_sudo_password}" | sudo -Sk chmod +x "${filepath}"
   #echo ""
