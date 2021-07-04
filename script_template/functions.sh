@@ -138,7 +138,7 @@ function init_template_function_wrapper() {
   ##############################FUNCTION_START#################################
   
   if [ ! -v body_part_1 ] || [ ! -v body_part_2 ]; then
-    current_date="$(date +%F)"
+    current_date="$(cat "${script_dir}/VERSION")"
     local line_no
     line_no=0
     local script_dir
