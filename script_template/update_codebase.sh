@@ -53,7 +53,7 @@
 ar18.script.import script.obtain_sudo_password
 ar18.script.obtain_sudo_password
 
-. "${script_dir}/functions.sh"
+. "${script_dir}/functions_update_codebase.sh"
 
 run "${1}"
 

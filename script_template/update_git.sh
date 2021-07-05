@@ -53,7 +53,7 @@
 ar18.script.import script.obtain_sudo_password
 ar18.script.obtain_sudo_password
 
-. "${script_dir}/update_git_functions.sh"
+. "${script_dir}/functions_update_git.sh"
 
 update_git "${1}"
 
