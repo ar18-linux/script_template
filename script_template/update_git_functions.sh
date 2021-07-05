@@ -4,7 +4,7 @@
 function update_git() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -48,7 +48,7 @@ function update_git() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=

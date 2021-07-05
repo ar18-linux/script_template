@@ -5,7 +5,7 @@
 function run() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -49,7 +49,7 @@ function run() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -114,7 +114,7 @@ function handle_file() {
 function init_template_script_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -164,7 +164,7 @@ function init_template_script_wrapper() {
 function init_template_function_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -213,7 +213,7 @@ function init_template_function_wrapper() {
 function update_script() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -280,7 +280,7 @@ function update_script() {
 function update_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
@@ -362,7 +362,7 @@ function update_functions() {
 function update_inner_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-04_19:11:04
+    # Function template version 2021-07-05_08:39:05
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
