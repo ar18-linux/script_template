@@ -387,6 +387,8 @@ function update_inner_functions() {
   body_end="0"
   local function_end
   function_end="0"
+  local body_part_1_temp
+  local body_part_2_temp
   rm -f "${filepath}_bak"
   touch "${filepath}_bak"
   local line_no
@@ -409,11 +411,12 @@ function update_inner_functions() {
       if [ "${function_start}" != "0" ]; then
         if [ "${body_start}" != "0" ] && [ "${body_end}" != "0" ]; then
           echo "$(sed "${function_start}!d" "${filepath}")" >> "${filepath}_bak"
-          body_part_1="  $(echo "${body_part_1}" | perl -p -e 's/\n/\n  /')"
-          echo "${body_part_1}" >> "${filepath}_bak"
+          body_part_1_temp="  $(echo "${body_part_1}" | perl -p -e 's/\n/\n  /')"
+          echo -n "${body_part_1_temp}" >> "${filepath}_bak"
           echo "$(tail -n "+${body_start}" "${filepath}" | head -n "$((body_end - body_start + 1))")" >> "${filepath}_bak"
-          body_part_2="  $(echo "${body_part_2}" | perl -p -e 's/\n/\n  /')"
-          echo -n "${body_part_2}" >> "${filepath}_bak"
+          body_part_2_temp="  $(echo "${body_part_2}" | perl -p -e 's/\n/\n  /')"
+          body_part_2_temp="${body_part_2_temp%??}"
+          echo -n "${body_part_2_temp}" >> "${filepath}_bak"
         else
           echo "$(tail -n "+${function_start}" "${filepath}" | head -n "$((function_end - function_start + 1))")" >> "${filepath}_bak"
         fi
