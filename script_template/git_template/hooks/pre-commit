@@ -2,5 +2,7 @@
 
 . ./vars
 
-echo "$(date +%F_%T)" > "./${module_name}/VERSION"
-git add "./${module_name}/VERSION"
+if [ -d "./${module_name}" ]; then
+  echo "$(date +%F_%T)" > "./${module_name}/VERSION"
+  git add "./${module_name}/VERSION"
+fi
