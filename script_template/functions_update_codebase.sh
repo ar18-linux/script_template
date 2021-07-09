@@ -5,17 +5,20 @@
 function run() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -35,10 +38,11 @@ function run() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
@@ -49,17 +53,20 @@ function run() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -81,10 +88,11 @@ function handle_directory() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
@@ -114,17 +122,20 @@ function handle_file() {
 function init_template_script_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -150,10 +161,11 @@ function init_template_script_wrapper() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
@@ -164,17 +176,20 @@ function init_template_script_wrapper() {
 function init_template_function_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -199,10 +214,11 @@ function init_template_function_wrapper() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
@@ -213,17 +229,20 @@ function init_template_function_wrapper() {
 function update_script() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -266,10 +285,11 @@ function update_script() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
@@ -280,17 +300,20 @@ function update_script() {
 function update_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -348,10 +371,11 @@ function update_functions() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
@@ -362,17 +386,20 @@ function update_functions() {
 function update_inner_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-05_08:39:05
+    # Function template version 2021-07-06_08:05:30
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -eu
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
     LD_PRELOAD=
-    local shell_options
-    IFS=$'\n' shell_options=($(shopt -op))
-    set -eu
-    set -o pipefail
     local ret
     ret=0
-    set +x
   }
   ##############################FUNCTION_START#################################
   
@@ -435,10 +462,11 @@ function update_inner_functions() {
   # Restore environment
   {
     set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
     for option in "${shell_options[@]}"; do
       eval "${option}"
     done
-    LD_PRELOAD="${LD_PRELOAD_old}"
   }
   
   return "${ret}"
