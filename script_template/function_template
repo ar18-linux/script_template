@@ -9,9 +9,10 @@ function function_name() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
