@@ -5,7 +5,7 @@
 function run() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -13,9 +13,10 @@ function run() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -53,7 +54,7 @@ function run() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -61,9 +62,10 @@ function handle_directory() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -122,7 +124,7 @@ function handle_file() {
 function init_template_script_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -130,9 +132,10 @@ function init_template_script_wrapper() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -176,7 +179,7 @@ function init_template_script_wrapper() {
 function init_template_function_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -184,9 +187,10 @@ function init_template_function_wrapper() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -229,7 +233,7 @@ function init_template_function_wrapper() {
 function update_script() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -237,9 +241,10 @@ function update_script() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -300,7 +305,7 @@ function update_script() {
 function update_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -308,9 +313,10 @@ function update_functions() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -386,7 +392,7 @@ function update_functions() {
 function update_inner_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -394,9 +400,10 @@ function update_inner_functions() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0

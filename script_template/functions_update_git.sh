@@ -4,7 +4,7 @@
 function update_git() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -12,9 +12,10 @@ function update_git() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
@@ -52,7 +53,7 @@ function update_git() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-09_20:04:12
+    # Function template version 2021-07-09_20:12:35
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -60,9 +61,10 @@ function handle_directory() {
     # Set shell options for this script
     set +x
     set -o pipefail
-    set -eu
+    set -e
     local LD_PRELOAD_old
     LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
     LD_PRELOAD=
     local ret
     ret=0
