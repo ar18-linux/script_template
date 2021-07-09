@@ -4,7 +4,7 @@
 function update_git() {
   # Prepare script environment
   {
-    # Function template version 2021-07-06_08:05:30
+    # Function template version 2021-07-09_20:04:12
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -52,7 +52,7 @@ function update_git() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-06_08:05:30
+    # Function template version 2021-07-09_20:04:12
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
