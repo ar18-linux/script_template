@@ -80,12 +80,17 @@
 }
 #################################SCRIPT_START##################################
 
-ar18.script.import script.obtain_sudo_password
-ar18.script.obtain_sudo_password
-
-. "${script_dir}/functions_update_git.sh"
-
-update_git "${1}"
+#set -x
+echo test
+echo "${script_path}"
+"${script_dir}/test2/test2.sh"
+echo "${script_path}"
+. "${script_dir}/test2/test2.sh"
+echo "${script_path}"
+"${script_dir}/test2/test2.sh"
+echo "${script_path}"
+. "${script_dir}/test2/test2.sh"
+echo "${script_path}"
 
 ##################################SCRIPT_END###################################
 set +x
