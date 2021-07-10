@@ -70,6 +70,7 @@
   fi
   ar18_pwd_map["${script_path_temp}"]="${PWD}"
   if [ ! -v ar18_parent_process ]; then
+    unset import_map
     export ar18_parent_process="$$"
   fi
   # Get import module
