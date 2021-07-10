@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ar18
+
 
 # Prepare script environment
 {

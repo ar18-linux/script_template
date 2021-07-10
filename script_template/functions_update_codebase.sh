@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# ar18
 
 
 function run() {
@@ -109,9 +108,9 @@ function handle_file() {
   check="$(sed "2!d" "${filepath}")"
   if [ "${check}" = "# ar18" ]; then
     echo "Processing ${filepath}"
-    update_inner_functions "${filepath}"
-    update_functions "${filepath}"
-    update_script "${filepath}"
+    #update_inner_functions "${filepath}"
+    #update_functions "${filepath}"
+    #update_script "${filepath}"
   fi
   ar18.script.import script.execute_with_sudo
   ar18.script.execute_with_sudo chmod +x "${filepath}"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# ar18
+
 
 function update_git() {
   # Prepare script environment
