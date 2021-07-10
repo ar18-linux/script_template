@@ -5,7 +5,7 @@
 function run() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -54,7 +54,7 @@ function run() {
 function handle_directory() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -124,7 +124,7 @@ function handle_file() {
 function init_template_script_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -179,7 +179,7 @@ function init_template_script_wrapper() {
 function init_template_function_wrapper() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -233,7 +233,7 @@ function init_template_function_wrapper() {
 function update_script() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -305,7 +305,7 @@ function update_script() {
 function update_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
@@ -392,7 +392,7 @@ function update_functions() {
 function update_inner_functions() {
   # Prepare script environment
   {
-    # Function template version 2021-07-10_11:32:20
+    # Function template version 2021-07-10_11:40:41
     # Get old shell option values to restore later
     local shell_options
     shopt -s inherit_errexit
