@@ -68,11 +68,17 @@ $SELECTION$
     eval "${option}"
   done
 }
+function clean_up(){
+  rm -rf "/tmp/${ar18_parent_process}"
+}
 # Return or exit depending on whether the script was sourced or not
 {
   if [ "${ar18_sourced_map["${script_path}"]}" = "1" ]; then
     return "${ar18_exit_map["${script_path}"]}"
   else
+    if [ "${ar18_parent_process}" = "$$" ]; then
+      clean_up
+    fi
     exit "${ar18_exit_map["${script_path}"]}"
   fi
 }
