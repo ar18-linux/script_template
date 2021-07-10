@@ -94,7 +94,7 @@ function clean_up(){
   script_dir="${ar18_old_script_dir_map["$(realpath "${BASH_SOURCE[0]}")"]}"
   script_path="${ar18_old_script_path_map["$(realpath "${BASH_SOURCE[0]}")"]}"
   # Restore LD_PRELOAD
-  LD_PRELOAD=ar18_old_ld_preload_map["$(realpath "${BASH_SOURCE[0]}")"]
+  LD_PRELOAD="${ar18_old_ld_preload_map["$(realpath "${BASH_SOURCE[0]}")"]}"
   # Restore PWD
   cd "${ar18_pwd_map["$(realpath "${BASH_SOURCE[0]}")"]}"
   # Restore old shell values
