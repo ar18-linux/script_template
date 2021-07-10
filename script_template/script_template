@@ -21,6 +21,9 @@
     declare -A -g ar18_old_script_dir_map
   fi
   set +u
+  if [ ! -v script_dir ]; then
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+  fi
   ar18_old_script_dir_map["$(realpath "${BASH_SOURCE[0]}")"]="${script_dir}"
   set -u
   # Save old script_path variable
@@ -28,6 +31,9 @@
     declare -A -g ar18_old_script_path_map
   fi
   set +u
+  if [ ! -v script_path ]; then
+    script_path="${script_dir}/$(basename "${0}")"
+  fi
   ar18_old_script_path_map["$(realpath "${BASH_SOURCE[0]}")"]="${script_path}"
   set -u
   # Determine the full path of the directory this script is in
