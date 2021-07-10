@@ -82,3 +82,5 @@ function clean_up(){
     exit "${ar18_exit_map["${script_path}"]}"
   fi
 }
+
+trap clean_up SIGINT
