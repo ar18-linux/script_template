@@ -21,14 +21,14 @@
     declare -A -g ar18_old_script_dir_map
   fi
   set +u
-  ar18_old_script_dir_map["$(readlink "${BASH_SOURCE[0]}")"]="${script_dir}"
+  ar18_old_script_dir_map["$(realpath "${BASH_SOURCE[0]}")"]="${script_dir}"
   set -u
   # Save old script_path variable
   if [ ! -v ar18_old_script_path_map ]; then
     declare -A -g ar18_old_script_path_map
   fi
   set +u
-  ar18_old_script_path_map["$(readlink "${BASH_SOURCE[0]}")"]="${script_path}"
+  ar18_old_script_path_map["$(realpath "${BASH_SOURCE[0]}")"]="${script_path}"
   set -u
   # Determine the full path of the directory this script is in
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
@@ -78,8 +78,8 @@ function clean_up(){
 {
   exit_script_path="${script_path}"
   # Restore script_dir and script_path
-  script_dir="${ar18_old_script_dir_map["$(readlink "${BASH_SOURCE[0]}")"]}"
-  script_path="${ar18_old_script_path_map["$(readlink "${BASH_SOURCE[0]}")"]}"
+  script_dir="${ar18_old_script_dir_map["$(realpath "${BASH_SOURCE[0]}")"]}"
+  script_path="${ar18_old_script_path_map["$(realpath "${BASH_SOURCE[0]}")"]}"
   # Restore LD_PRELOAD
   LD_PRELOAD="${LD_PRELOAD_old}"
   # Restore PWD
