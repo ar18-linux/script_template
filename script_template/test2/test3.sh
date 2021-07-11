@@ -3,7 +3,7 @@
 
 # Prepare script environment
 {
-  # Script template version 2021-07-11_00:02:47
+  # Script template version 2021-07-11_15:24:34
   script_dir_temp="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
   script_path_temp="${script_dir_temp}/$(basename "${BASH_SOURCE[0]}")"
   # Get old shell option values to restore later
@@ -60,7 +60,7 @@ function ar18_return_or_exit(){
 }
 
 function clean_up() {
-  echo "cleanup ${ar18_parent_process}" 3
+  echo "cleanup ${ar18_parent_process}"
   rm -rf "/tmp/${ar18_parent_process}"
 }
 trap clean_up SIGINT SIGHUP SIGQUIT SIGTERM EXIT
@@ -69,7 +69,7 @@ function err_report() {
   local path="${1}"
   local lineno="${2}"
   local msg="${3}"
-  #clean_up
+  clean_up
   RED="\e[1m\e[31m"
   NC="\e[0m" # No Color
   printf "${RED}ERROR ${path}:${lineno}\n${msg}${NC}\n"
@@ -147,8 +147,6 @@ trap 'err_report "${BASH_SOURCE[0]}" ${LINENO} "${BASH_COMMAND}"' ERR
   fi
   ar18_sourced_return_map["${script_path_temp}"]="${ar18_on_sourced_return_temp}"
   function local_return_trap(){
-    #echo "$(caller)"
-    #echo "DEBUG: ${script_path} ${FUNCNAME[1]}:${BASH_LINENO[1]}"
     if [ "${ar18_sourced_map["${script_path_temp}"]}" = "1" ] \
     && [ "${FUNCNAME[1]}" = "ar18_return_or_exit" ]; then
       if type ar18_on_sourced_return > /dev/null 2>&1; then
