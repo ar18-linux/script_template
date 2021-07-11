@@ -60,7 +60,7 @@ function ar18_return_or_exit(){
 }
 
 function clean_up() {
-  echo "cleanup ${ar18_parent_process}"
+  echo "cleanup ${ar18_parent_process}" 3
   rm -rf "/tmp/${ar18_parent_process}"
 }
 trap clean_up SIGINT SIGHUP SIGQUIT SIGTERM EXIT
@@ -69,7 +69,7 @@ function err_report() {
   local path="${1}"
   local lineno="${2}"
   local msg="${3}"
-  clean_up
+  #clean_up
   RED="\e[1m\e[31m"
   NC="\e[0m" # No Color
   printf "${RED}ERROR ${path}:${lineno}\n${msg}${NC}\n"
@@ -168,10 +168,20 @@ trap 'err_report "${BASH_SOURCE[0]}" ${LINENO} "${BASH_COMMAND}"' ERR
   fi
 }
 #################################SCRIPT_START##################################
+echo start test3
+#trap 'echo exit test2' exit
+#ar18.script.import ar18.script.add_trap
+. /home/nulysses/Projects/ar18_lib_bash/ar18_lib_bash/script/add_trap.sh
 function ar18_on_sourced_return(){
-  echo ar18_on_sourced_return1
+  echo ar18_on_sourced_return3
 }
-echo "source test2"
+function e2(){
+  echo exit2 test2
+}
+function t(){
+  echo ${FUNCNAME[0]}
+  echo testfunction
+}
 function stacktrace2 {
    local i=${1:-1} size=${#BASH_SOURCE[@]}
    ((i<size)) && echo "STACKTRACE"
@@ -180,30 +190,22 @@ function stacktrace2 {
       echo "[$frame] ${BASH_SOURCE[$i]:-}:${BASH_LINENO[$i]} ${FUNCNAME[$i+1]}()"
    done
 }
-
-. "${script_dir}/test2/test2.sh"
-#trap 'echo foo' exit
-echo befroe exit1
-exit
+ar18.script.add_trap "echo new trap!" int
+#trap 'echo foo' int
+trap -p
+echo source test4
+. "${script_dir}/test4.sh"
+echo "before exit3"
+ar18_return_or_exit "${script_path}" && eval "${ar18_exit}"
+echo f
+trap -p exit
+echo h
+#eval "$(trap -p exit)"
 echo "${ar18_parent_process}"
 ar18.script.import ar18.script.obtain_sudo_password
-#trap 'echo exit test1' exit
+
 #set -x
-echo test
-echo "${script_path}"
-
-#echo "exec test2"
-#"${script_dir}/test2/test2.sh"
-#echo "${script_path}"
-echo "source test2"
-. "${script_dir}/test2/test2.sh"
-
-echo "${script_path}"
-echo "exec test2"
-"${script_dir}/test2/test2.sh"
-echo "${script_path}"
-echo "source test2"
-. "${script_dir}/test2/test2.sh"
+echo test2
 echo "${script_path}"
 
 ##################################SCRIPT_END###################################
