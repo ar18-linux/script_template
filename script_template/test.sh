@@ -3,7 +3,7 @@
 
 # Prepare script environment
 {
-  # Script template version 2021-07-11_15:26:09
+  # Script template version 2021-07-11_15:53:09
   script_dir_temp="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
   script_path_temp="${script_dir_temp}/$(basename "${BASH_SOURCE[0]}")"
   # Get old shell option values to restore later
