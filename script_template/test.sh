@@ -169,6 +169,11 @@ trap 'err_report "${BASH_SOURCE[0]}" ${LINENO} "${BASH_COMMAND}"' ERR
   fi
 }
 #################################SCRIPT_START##################################
+ar18.script.import ar18.script.obtain_sudo_password
+ar18.script.import ar18.script.execute_with_sudo
+ar18.script.obtain_sudo_password
+ar18.script.execute_with_sudo echo "$(whoami)"
+exit
 function ar18_extra_cleanup(){
   echo ar18_on_sourced_return1
 }

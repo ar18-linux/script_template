@@ -20,6 +20,18 @@
   set -o functrace
 }
 
+function stacktrace(){
+  echo "STACKTRACE"
+  local size
+  size="${#BASH_SOURCE[@]}"
+  local idx
+  idx="$((size - 2))"
+  while [ "${idx}" -ge "1" ]; do
+    caller "${idx}"
+    ((idx--))
+  done
+}
+
 function restore_env(){
   local exit_script_path
   exit_script_path="${script_path}"
@@ -71,9 +83,9 @@ function err_report() {
   local path="${1}"
   local lineno="${2}"
   local msg="${3}"
-  clean_up
   RED="\e[1m\e[31m"
   NC="\e[0m" # No Color
+  stacktrace
   printf "${RED}ERROR ${path}:${lineno}\n${msg}${NC}\n"
 }
 trap 'err_report "${BASH_SOURCE[0]}" ${LINENO} "${BASH_COMMAND}"' ERR

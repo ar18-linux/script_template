@@ -191,7 +191,8 @@ function stacktrace2 {
       echo "[$frame] ${BASH_SOURCE[$i]:-}:${BASH_LINENO[$i]} ${FUNCNAME[$i+1]}()"
    done
 }
-
+echo "${BASH_SOURCE[@]}"
+caller 2
 echo "before exit4"
 ar18_return_or_exit "${script_path}" && eval "${ar18_exit}"
 echo f
