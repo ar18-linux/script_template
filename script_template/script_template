@@ -54,11 +54,14 @@ function restore_env(){
 function ar18_return_or_exit(){
   set +x
   local path
-  path="${1}"
   local ret
   set +u
+  path="${1}"
   ret="${2}"
   set -u
+  if [ "${path}" = "" ]; then
+    path="${script_path}"
+  fi
   if [ "${ret}" = "" ]; then
     ret="${ar18_exit_map["${path}"]}"
   fi
