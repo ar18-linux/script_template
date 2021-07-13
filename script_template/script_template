@@ -61,8 +61,6 @@ function ar18_return_or_exit(){
   set -u
   if [ "${ret}" = "" ]; then
     ret="${ar18_exit_map["${path}"]}"
-  else
-    ret="${ar18_exit_map["${path}"]}"
   fi
   if [ "${ar18_sourced_map["${path}"]}" = "1" ]; then
     export ar18_exit="return ${ret}"
