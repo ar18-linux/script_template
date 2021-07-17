@@ -182,7 +182,7 @@ trap 'err_report "${BASH_SOURCE[0]}" ${LINENO} "${BASH_COMMAND}"' ERR
 ar18.script.import ar18.script.obtain_sudo_password
 ar18.script.import ar18.script.execute_with_sudo
 ar18.script.obtain_sudo_password
-ar18.script.execute_with_sudo echo "$(whoami)"
+ar18.script.execute_with_sudo bash -c 'echo "$(whoami)" > /mnt/test'
 alias my_exit='ar18_return_or_exit "${script_path}" && eval "${ar18_exit}"'
 ${BASH_ALIASES[my_exit]}
 my_exit
