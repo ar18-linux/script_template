@@ -130,12 +130,88 @@ function handle_file_xonsh() {
   if [[ "${check}" = "# ar18"* ]]; then
     echo "Processing xonsh file ${filepath}"
     update_script_xonsh "${filepath}"
+    update_functions_xonsh "${filepath}"
   fi
   ar18.script.import script.execute_with_sudo
   ar18.script.execute_with_sudo chmod +x "${filepath}"
   #echo ""
   #echo "${ar18_sudo_password}" | sudo -Sk chmod +x "${filepath}"
   #echo ""
+}
+
+
+function update_functions_xonsh(){
+  # Prepare script environment
+  {
+    # Function template version 2021-07-10_14:41:36
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -e
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
+    LD_PRELOAD=
+    local ret
+    ret=0
+  }
+  ##############################FUNCTION_START#################################
+  
+  local filepath
+  filepath="${1}"
+  local file_base_name
+  file_base_name="$(basename "${filepath}")"
+  file_base_name="${file_base_name%.xsh}"
+  init_template_function_wrapper_xonsh
+  local script_start
+  script_start="0"
+  local script_end
+  script_end="0"
+  rm -f "${filepath}_bak"
+  touch "${filepath}_bak"
+  local line_no
+  line_no=0
+  while IFS= read -r line; do
+    line_no=$((line_no + 1))
+    if [ "${line}" = "##############################FUNCTION_START#################################" ]; then
+      script_start="$((line_no + 1))"
+    elif [ "${line}" = "###############################FUNCTION_END##################################" ]; then
+      script_end="$((line_no - 1))"
+    fi
+    if [ "${script_end}" != "0" ]; then
+      if [ "${script_start}" != "0" ]; then
+        echo "${function_part_xonsh_1/@@FUNCTION_NAME@@/"${file_base_name}"}" >> "${filepath}_bak"
+        echo "$(tail -n "+${script_start}" "${filepath}" | head -n "$((script_end - script_start + 1))")" >> "${filepath}_bak"
+        # TODO: Somehow, newlines are completely removed between end of script and footer. This is just a patch, not a solution
+        echo '' >> "${filepath}_bak"
+        echo "${function_part_xonsh_2}" >> "${filepath}_bak"
+        mv "${filepath}_bak" "${filepath}"
+        break 
+      else
+        break
+      fi
+    fi
+  done < "${filepath}"
+  
+  rm -f "${filepath}_bak"
+  
+  ###############################FUNCTION_END##################################
+  # Restore environment
+  {
+    set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+  }
+  
+  return "${ret}"
+  
 }
 
 
@@ -209,6 +285,61 @@ function init_template_script_wrapper() {
   
   return "${ret}"
   
+}
+
+
+function init_template_function_wrapper_xonsh(){
+  # Prepare script environment
+  {
+    # Function template version 2021-07-10_14:41:36
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -e
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
+    LD_PRELOAD=
+    local ret
+    ret=0
+  }
+  ##############################FUNCTION_START#################################
+  
+  if [ ! -v function_part_xonsh_1 ] || [ ! -v function_part_xonsh_2 ]; then
+    current_date="$(cat "${script_dir}/VERSION")"
+    local line_no
+    line_no=0
+    local script_dir
+    script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+    while IFS= read -r line; do
+      line_no=$((line_no + 1))
+      if [ "${line}" = "##############################FUNCTION_START#################################" ]; then
+        function_part_xonsh_1="$(tail -n "+1" "${script_dir}/function_template_xonsh" | head -n "$((line_no - 1 + 1))")"
+        export function_part_xonsh_1="${function_part_xonsh_1/@@VERSION@@/${current_date}}"
+      elif [ "${line}" = "###############################FUNCTION_END##################################" ]; then
+        export function_part_xonsh_2="$(tail -n "+${line_no}" "${script_dir}/function_template_xonsh")"
+        break
+      fi
+    done < "${script_dir}/function_template_xonsh"
+  fi
+  
+  ###############################FUNCTION_END##################################
+  # Restore environment
+  {
+    set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+  }
+  
+  return "${ret}"
+
 }
 
 
