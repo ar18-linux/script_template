@@ -75,7 +75,9 @@ function handle_directory() {
   target_path="${1}"
   for item in "${target_path}/"*; do
       if [ -f "${item}" ]; then
-        if [[ "${item}" == *.sh ]]; then
+        if [[ "${item}" == *.xsh ]]; then
+          handle_file_xonsh "${item}"
+        elif [[ "${item}" == *.sh ]]; then
           handle_file "${item}"
         fi
       elif [ -d "${item}" ]; then
@@ -111,6 +113,23 @@ function handle_file() {
     update_inner_functions "${filepath}"
     update_functions "${filepath}"
     update_script "${filepath}"
+  fi
+  ar18.script.import script.execute_with_sudo
+  ar18.script.execute_with_sudo chmod +x "${filepath}"
+  #echo ""
+  #echo "${ar18_sudo_password}" | sudo -Sk chmod +x "${filepath}"
+  #echo ""
+}
+
+
+function handle_file_xonsh() {
+  local filepath
+  filepath="${1}"
+  local check
+  check="$(sed "2!d" "${filepath}")"
+  if [ "${check}" = "# ar18" ]; then
+    echo "Processing xonsh file ${filepath}"
+    update_script_xonsh "${filepath}"
   fi
   ar18.script.import script.execute_with_sudo
   ar18.script.execute_with_sudo chmod +x "${filepath}"
@@ -157,6 +176,24 @@ function init_template_script_wrapper() {
         break
       fi
     done < "${script_dir}/script_template"
+  fi
+  
+  if [ ! -v script_part_xonsh_1 ] || [ ! -v script_part_xonsh_2 ]; then
+    current_date="$(cat "${script_dir}/VERSION")"
+    local line_no
+    line_no=0
+    local script_dir
+    script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+    while IFS= read -r line; do
+      line_no=$((line_no + 1))
+      if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
+        script_part_xonsh_1="$(tail -n "+1" "${script_dir}/script_template_xonsh" | head -n "$((line_no - 1 + 1))")"
+        export script_part_xonsh_1="${script_part_xonsh_1/@@VERSION@@/${current_date}}"
+      elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
+        export script_part_xonsh_2="$(tail -n "+${line_no}" "${script_dir}/script_template_xonsh")"
+        break
+      fi
+    done < "${script_dir}/script_template_xonsh"
   fi
   
   ###############################FUNCTION_END##################################
@@ -275,6 +312,78 @@ function update_script() {
         # TODO: Somehow, newlines are completely removed between end of script and footer. This is just a patch, not a solution
         echo '' >> "${filepath}_bak"
         echo "${script_part_2}" >> "${filepath}_bak"
+        mv "${filepath}_bak" "${filepath}"
+        break 
+      else
+        break
+      fi
+    fi
+  done < "${filepath}"
+  
+  rm -f "${filepath}_bak"
+  
+  ###############################FUNCTION_END##################################
+  # Restore environment
+  {
+    set +x
+    LD_PRELOAD="${LD_PRELOAD_old}"
+    # Restore old shell values
+    for option in "${shell_options[@]}"; do
+      eval "${option}"
+    done
+  }
+  
+  return "${ret}"
+  
+}
+
+
+function update_script_xonsh() {
+  # Prepare script environment
+  {
+    # Function template version 2021-07-10_14:41:36
+    # Get old shell option values to restore later
+    local shell_options
+    shopt -s inherit_errexit
+    IFS=$'\n' shell_options=($(shopt -op))
+    # Set shell options for this script
+    set +x
+    set -o pipefail
+    set -e
+    local LD_PRELOAD_old
+    LD_PRELOAD_old="${LD_PRELOAD}"
+    set -u
+    LD_PRELOAD=
+    local ret
+    ret=0
+  }
+  ##############################FUNCTION_START#################################
+  
+  local filepath
+  filepath="${1}"
+  init_template_script_wrapper
+  local script_start
+  script_start="0"
+  local script_end
+  script_end="0"
+  rm -f "${filepath}_bak"
+  touch "${filepath}_bak"
+  local line_no
+  line_no=0
+  while IFS= read -r line; do
+    line_no=$((line_no + 1))
+    if [ "${line}" = "#################################SCRIPT_START##################################" ]; then
+      script_start="$((line_no + 1))"
+    elif [ "${line}" = "##################################SCRIPT_END###################################" ]; then
+      script_end="$((line_no - 1))"
+    fi
+    if [ "${script_end}" != "0" ]; then
+      if [ "${script_start}" != "0" ]; then
+        echo "${script_part_xonsh_1}" >> "${filepath}_bak"
+        echo "$(tail -n "+${script_start}" "${filepath}" | head -n "$((script_end - script_start + 1))")" >> "${filepath}_bak"
+        # TODO: Somehow, newlines are completely removed between end of script and footer. This is just a patch, not a solution
+        echo '' >> "${filepath}_bak"
+        echo "${script_part_xonsh_2}" >> "${filepath}_bak"
         mv "${filepath}_bak" "${filepath}"
         break 
       else

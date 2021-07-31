@@ -1,8 +1,19 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 . ./vars
-
+version="$(date +%F_%T)"
 if [ -d "./${module_name}" ]; then
-  echo "$(date +%F_%T)" > "./${module_name}/VERSION"
+  echo "${version}" > "./${module_name}/VERSION"
   git add "./${module_name}/VERSION"
 fi
+echo "${version}" > "./VERSION"
+git add "./VERSION"
+IFS=$'\n'
+for line in $(git diff HEAD --cached --name-status); do 
+  action="$(echo "${line}" | cut -d $'\t' -f1)"
+  file="$(echo "${line}" | cut -d $'\t' -f2)"
+  if [ "${action}" != "D" ]; then
+    sed -i -E "2s/# ar18 Script version .*/# ar18 Script version ${version}/" "${file}"
+    git add "${file}"
+  fi
+done
