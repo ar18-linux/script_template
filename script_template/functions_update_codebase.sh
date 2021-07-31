@@ -127,7 +127,7 @@ function handle_file_xonsh() {
   filepath="${1}"
   local check
   check="$(sed "2!d" "${filepath}")"
-  if [ "${check}" = "# ar18" ]; then
+  if [[ "${check}" = "# ar18"* ]]; then
     echo "Processing xonsh file ${filepath}"
     update_script_xonsh "${filepath}"
   fi
