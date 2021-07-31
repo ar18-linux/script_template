@@ -1,5 +1,5 @@
 #! /usr/bin/env xonsh
-# ar18 Script version 2021-07-31_12:24:52
+# ar18 Script version 2021-07-31_13:01:45
 # Script template version @@VERSION@@
 
 import os
@@ -26,8 +26,12 @@ def get_parent_process():
     print($AR18_PARENT_PROCESS)
 
 
-def get_environment():
+def script_dir():
+  return os.path.abspath(os.path.dirname(__file__))
 
+
+def get_environment():
+  pass
 
 
 def import_include():
