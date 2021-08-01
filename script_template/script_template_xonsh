@@ -1,5 +1,5 @@
 #! /usr/bin/env xonsh
-# ar18 Script version 2021-07-31_15:39:48
+# ar18 Script version 2021-08-01_09:52:50
 # Script template version @@VERSION@@
 
 import os
@@ -13,7 +13,8 @@ $XONSH_SHOW_TRACEBACK = True
 
 @events.on_exit
 def test():
-  rm -rf @(f"/tmp/xonsh/{$AR18_PARENT_PROCESS}")
+  if os.getpid() == $AR18_PARENT_PROCESS:
+    rm -rf @($AR18_TEMP_DIR)
   print("on_exit")
 
 
@@ -33,31 +34,42 @@ def script_dir():
   return os.path.abspath(os.path.dirname(__file__))
 
 
+def script_path():
+  return os.path.abspath(__file__)
+
+
 def get_environment():
   pass
 
 
+def retrieve_file(url, dest_dir):
+  old_cwd = os.getcwd()
+  mkdir -p @(dest_dir)
+  cd @(dest_dir)
+  curl -f -O @(url)
+  cd @(old_cwd)
+  
+
 def import_include():
   try:
-    _test = ar18.script.include
+    assert ar18.script.include
   except:
     # Check if ar18_lib_xonsh is installed on the system.
     # If it cannot be found, fetch it from github.com.
-    file_path = ""
     install_dir_path = f"/home/{$AR18_USER_NAME}/.config/ar18/{$AR18_LIB_XONSH}/INSTALL_DIR"
     if os.path.exists(install_dir_path):
       file_path = open(install_dir_path).read()
       if os.path.exists(file_path):
-        file_path = f"{file_path}/{$AR18_LIB_XONSH}/ar18/include.xsh"
+        file_path = f"{file_path}/{$AR18_LIB_XONSH}/ar18/script/include.xsh"
     else:
       file_path = f"{$AR18_TEMP_DIR}/{$AR18_LIB_XONSH}/ar18/script/include.xsh"
       mkdir -p @(os.path.dirname(file_path))
     if not os.path.exists(file_path):
       print("get from github")
-      old_cwd = os.getcwd()
-      cd @(os.path.dirname(file_path))
-      curl -f -O @(f"https://raw.githubusercontent.com/ar18-linux/{$AR18_LIB_XONSH}/master/{$AR18_LIB_XONSH}/ar18/script/include.xsh")
-      cd @(old_cwd)
+      retrieve_file(
+        f"https://raw.githubusercontent.com/ar18-linux/{$AR18_LIB_XONSH}/master/{$AR18_LIB_XONSH}/ar18/script/include.xsh",
+        os.path.dirname(file_path)
+      )
     source @(file_path)
     print(45)
 
@@ -65,21 +77,6 @@ def import_include():
 get_user_name()
 get_parent_process()
 import_include()
-
-"""
-if not ar18_script_include:
-  mkdir -p "/tmp/${ar18_parent_process}"
-  old_cwd = $(${PWD})
-  cd "/tmp/${ar18_parent_process}"
-  curl -O https://raw.githubusercontent.com/ar18-linux/ar18_lib_bash/master/ar18_lib_bash/script/import.sh >/dev/null 2>&1 && . "/tmp/${ar18_parent_process}/import.sh"
-  export ar18_script_import
-  cd "${old_cwd}"
-
-if installed:
-  source @(f"{ar18_lib_install_dir}/ar18/script/include.xsh")
-else:
-  pass
-"""
 #################################SCRIPT_START##################################
 exit(0)
 echo @(os.path.abspath(sys.argv[0]))

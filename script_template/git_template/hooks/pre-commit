@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
+set +e
 . ./vars
 version="$(date +%F_%T)"
 if [ -d "./${module_name}" ]; then
@@ -17,3 +18,4 @@ for line in $(git diff HEAD --cached --name-status); do
     git add "${file}"
   fi
 done
+set -e

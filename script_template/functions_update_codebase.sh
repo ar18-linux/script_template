@@ -166,6 +166,10 @@ function update_functions_xonsh(){
   local file_base_name
   file_base_name="$(basename "${filepath}")"
   file_base_name="${file_base_name%.xsh}"
+  local file_module_name
+  file_module_name="$(dirname "${filepath}")"
+  #file_module_name="$(dirname "${file_module_name}")"
+  file_module_name="$(basename "${file_module_name}")"
   init_template_function_wrapper_xonsh
   local script_start
   script_start="0"
@@ -184,11 +188,17 @@ function update_functions_xonsh(){
     fi
     if [ "${script_end}" != "0" ]; then
       if [ "${script_start}" != "0" ]; then
-        echo "${function_part_xonsh_1/@@FUNCTION_NAME@@/"${file_base_name}"}" >> "${filepath}_bak"
+        local function_part_xonsh_1_temp
+        local function_part_xonsh_2_temp
+        function_part_xonsh_1_temp="${function_part_xonsh_1//@@FUNCTION_NAME@@/"${file_base_name}"}"
+        function_part_xonsh_2_temp="${function_part_xonsh_2//@@FUNCTION_NAME@@/"${file_base_name}"}"
+        function_part_xonsh_1_temp="${function_part_xonsh_1_temp//@@MODULE_NAME@@/"${file_module_name}"}"
+        function_part_xonsh_2_temp="${function_part_xonsh_2_temp//@@MODULE_NAME@@/"${file_module_name}"}"
+        echo "${function_part_xonsh_1_temp}" >> "${filepath}_bak"
         echo "$(tail -n "+${script_start}" "${filepath}" | head -n "$((script_end - script_start + 1))")" >> "${filepath}_bak"
         # TODO: Somehow, newlines are completely removed between end of script and footer. This is just a patch, not a solution
         echo '' >> "${filepath}_bak"
-        echo "${function_part_xonsh_2}" >> "${filepath}_bak"
+        echo "${function_part_xonsh_2_temp}" >> "${filepath}_bak"
         mv "${filepath}_bak" "${filepath}"
         break 
       else
