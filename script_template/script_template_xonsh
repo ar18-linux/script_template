@@ -1,5 +1,5 @@
 #! /usr/bin/env xonsh
-# ar18 Script version 2021-08-02_23:36:15
+# ar18 Script version 2021-08-03_00:02:13
 # Script template version @@VERSION@@
 
 if not "AR18_PARENT_PROCESS" in {...}:
@@ -23,6 +23,7 @@ if not "AR18_PARENT_PROCESS" in {...}:
     if os.getpid() == $AR18_PARENT_PROCESS:
       rm -rf @($AR18_TEMP_DIR)
     print("on_exit")
+    ar18.log.exit()
     
     
   def ar18_log_entry():
@@ -31,6 +32,10 @@ if not "AR18_PARENT_PROCESS" in {...}:
     
   def ar18_log_exit():
     print(f"[~] {get_script_path()}")
+    
+    
+  def module_name():
+    return os.path.basename(script_dir())
   
   
   def get_user_name():
@@ -87,6 +92,7 @@ if not "AR18_PARENT_PROCESS" in {...}:
         )
       source @(file_path)
   
+  ar18_log_entry()
   get_user_name()
   get_parent_process()
   import_include()
