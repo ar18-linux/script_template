@@ -1,5 +1,5 @@
 #! /usr/bin/env xonsh
-# ar18 Script version 2021-08-02_23:20:55
+# ar18 Script version 2021-08-02_23:23:49
 # Script template version @@VERSION@@
 
 if not "AR18_PARENT_PROCESS" in {...}:
@@ -38,11 +38,11 @@ if not "AR18_PARENT_PROCESS" in {...}:
   
   
   def script_dir():
-    return os.path.realpath(os.path.dirname(__file__))
+    return os.path.dirname(os.path.realpath(__file__))
   
   
   def script_path():
-    return os.path.abspath(__file__)
+    return os.path.realpath(__file__)
   
   
   def get_environment():
