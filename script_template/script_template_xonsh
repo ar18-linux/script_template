@@ -1,5 +1,5 @@
 #! /usr/bin/env xonsh
-# ar18 Script version 2021-08-03_00:02:13
+# ar18 Script version 2021-08-03_00:02:50
 # Script template version @@VERSION@@
 
 if not "AR18_PARENT_PROCESS" in {...}:
@@ -27,11 +27,11 @@ if not "AR18_PARENT_PROCESS" in {...}:
     
     
   def ar18_log_entry():
-    print(f"[*] {get_script_path()}")
+    print(f"[*] {script_path()}")
     
     
   def ar18_log_exit():
-    print(f"[~] {get_script_path()}")
+    print(f"[~] {script_path()}")
     
     
   def module_name():
