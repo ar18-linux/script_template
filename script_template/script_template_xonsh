@@ -1,5 +1,5 @@
 #! /usr/bin/env xonsh
-# ar18 Script version 2021-08-02_23:32:47
+# ar18 Script version 2021-08-02_23:36:15
 # Script template version @@VERSION@@
 
 if not "AR18_PARENT_PROCESS" in {...}:
@@ -86,12 +86,12 @@ if not "AR18_PARENT_PROCESS" in {...}:
           os.path.dirname(file_path)
         )
       source @(file_path)
-  else:
-    ar18.log.entry()
   
   get_user_name()
   get_parent_process()
   import_include()
+else:
+  ar18.log.entry()
 #################################SCRIPT_START##################################
 exit(0)
 echo @(os.path.abspath(sys.argv[0]))
